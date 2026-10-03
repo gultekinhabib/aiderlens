@@ -1,0 +1,20 @@
+name: AiderLens
+options:
+  bundleIdPrefix: com.appaider
+  deploymentTarget:
+    iOS: "17.0"
+settings:
+  base:
+    PRODUCT_BUNDLE_IDENTIFIER: com.appaider.aiderlens
+targets:
+  AiderLens:
+    type: application
+    platform: iOS
+    sources:
+      - AiderLens
+    info:
+      path: AiderLens/Info.plist
+      properties:
+        CFBundleDisplayName: Aider Lens
+        NSCameraUsageDescription: Aider Lens uses the camera to understand products, receipts, documents and other things you choose to scan.
+        UILaunchScreen: {}
