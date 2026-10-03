@@ -1,0 +1,59 @@
+openapi: 3.1.0
+info:
+  title: Aider Lens API
+  version: 0.1.0
+servers:
+  - url: https://api.aiderlens.com
+paths:
+  /health:
+    get:
+      operationId: health
+      responses:
+        "200":
+          description: API health
+  /v1/scans/classify:
+    post:
+      operationId: classifyScan
+      summary: Classify a captured object without requiring a user-selected scan mode.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClassifyScanRequest"
+      responses:
+        "200":
+          description: Classification result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClassificationResult"
+components:
+  schemas:
+    ScanType:
+      type: string
+      enum: [product, receipt, document, living, unknown]
+    ClassifyScanRequest:
+      type: object
+      properties:
+        barcode:
+          type: string
+        recognizedText:
+          type: string
+        imageObjectKey:
+          type: string
+      minProperties: 1
+    ClassificationResult:
+      type: object
+      required: [type, confidence]
+      properties:
+        type:
+          $ref: "#/components/schemas/ScanType"
+        confidence:
+          type: number
+          minimum: 0
+          maximum: 1
+        reasons:
+          type: array
+          items:
+            type: string
